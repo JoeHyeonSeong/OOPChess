@@ -99,4 +99,5 @@ public class GameManager
 		myGUI.notice("Check Mate!"+currentTurn.toString()+" Win!");
 		myGUI.showRetryButton();
 	}
+	
 }
