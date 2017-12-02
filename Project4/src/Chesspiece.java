@@ -60,6 +60,10 @@ public abstract class Chesspiece
 		return validPos;
 	}
 	
+	public void destroy()
+	{
+	}
+	
 	public boolean canGo(Vector2 pos)
 	{
 		Vector2[] nextPoses=MovablePos();
@@ -80,7 +84,7 @@ public abstract class Chesspiece
 			{
 				if(panel.checkmate((King)nextPiece))
 				{
-					GameManager.instance.checkmate();
+					GameManager.instance.gameOver();
 				}
 				else
 				{
