@@ -1,5 +1,4 @@
 import java.awt.Color;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -11,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,11 +23,9 @@ public class ChessGUI extends JFrame
 	JButton[][] chessSquares = new JButton[8][8];
 	
 	JPanel glass = (JPanel) super.getGlassPane();
-
 	JButton restart = new JButton("Restart?");
-  
+	
 	JLabel message = new JLabel();
-
 	
 	public ChessGUI(ChessPanel panel)
 	{
@@ -63,46 +61,7 @@ public class ChessGUI extends JFrame
 		}
 		backgroundRepaint();
 		add(jpanel);
-
 		
-		jpanel.setLayout(new GridLayout(8,8));
-		for(int i = 0; i < chessSquares.length; i++) {
-			for(int j = 0; j< chessSquares[i].length; j++) {
-				JButton square = new JButton();
-				square.setMargin(new Insets(0, 0, 0, 0));
-				
-				chessSquares[i][j] = square;
-				chessSquares[i][j].setText(String.valueOf(i) + "," + String.valueOf(j));
-				
-				final Integer x = new Integer(i);
-				final Integer y = new Integer(j);
-				
-				chessSquares[i][j].addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						GameManager.instance.cellSelected(new Vector2(x, y));
-					}
-				});
-				
-				jpanel.add(chessSquares[i][j]);
-			}
-		}
-		backgroundRepaint();
-		add(jpanel);
-	}
-
-	public void backgroundRepaint()
-	{
-		for(int i=0;i<chessSquares.length;i++)
-		{
-			for(int j=0;j<chessSquares.length;j++)
-			{
-				if((i % 2 == 1) && (j % 2 == 1) || (i % 2 == 0) && (j % 2 == 0)) {
-					chessSquares[i][j].setBackground(new Color(0.741f, 0.588f, 0.372f));
-				} else {
-					chessSquares[i][j].setBackground(new Color(0.345f, 0.231f,0.168f));
-				}
-			}
-		}
 	}
 
 	public void backgroundRepaint()
@@ -122,13 +81,12 @@ public class ChessGUI extends JFrame
 	
 	public void turnChange(Team toteam)//다음턴일때 해야 할 행동 판 돌리기, Black's Turn!이라고 말하기
 	{
-  for(int i = 0; i < chessSquares.length; i++) {
+		if(toteam == Team.Black) {
+			for(int i = 0; i < chessSquares.length; i++) {
 				for(int j = 0; j< chessSquares[i].length; j++) {
 					jpanel.remove(chessSquares[i][j]);
 				}
 			}
-		if(toteam == Team.Black) {
-			
 			
 			notice("Team BLACK's Turn!");
 
@@ -140,6 +98,12 @@ public class ChessGUI extends JFrame
 			}
 			jpanel.repaint();
 		} else {
+			for(int i = chessSquares.length - 1; i >= 0 ; i--) {
+				for(int j = chessSquares[i].length - 1; j >= 0; j--) {
+					jpanel.remove(chessSquares[i][j]);
+				}
+			}
+			
 			notice("Team WHITE's Turn!");
 			
 			for(int i = 0; i < chessSquares.length; i++) {
@@ -185,8 +149,8 @@ public class ChessGUI extends JFrame
 		glass.add(message);
 		glass.setVisible(true);
 		super.repaint();
+		
 		messageTimer.schedule(timertask, 3000);
-
 	}
 	
 	public void showRetryButton()//재시작버튼을 보여줌
