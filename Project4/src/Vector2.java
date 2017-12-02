@@ -40,7 +40,7 @@ public class Vector2
     {
         return new Vector2(x * num, y * num);
     }
-    public String ToString()
+    public String toString()
     {
         return "(" +Integer.toString(x) + "," + Integer.toString(y) + ")";
     }
