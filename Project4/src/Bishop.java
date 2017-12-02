@@ -5,7 +5,7 @@ public class Bishop extends LinearMovePiece
 	{
 		super(team, position, panel);
 		myCode="♗";
-		dir=new Vector2[] {new Vector2(1,1),new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,-1)};
+		dir=new Vector2[] {new Vector2(1,1),new Vector2(1,-1),new Vector2(-1,1),new Vector2(-1,-1)};
 	}
 
 }

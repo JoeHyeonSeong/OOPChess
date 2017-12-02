@@ -61,9 +61,9 @@ public class ChessGUI extends JFrame
 			for(int j=0;j<chessSquares.length;j++)
 			{
 				if((i % 2 == 1) && (j % 2 == 1) || (i % 2 == 0) && (j % 2 == 0)) {
-					chessSquares[i][j].setBackground(Color.WHITE);
+					chessSquares[i][j].setBackground(new Color(0.741f, 0.588f, 0.372f));
 				} else {
-					chessSquares[i][j].setBackground(Color.BLACK);
+					chessSquares[i][j].setBackground(new Color(0.345f, 0.231f,0.168f));
 				}
 			}
 		}
@@ -71,14 +71,12 @@ public class ChessGUI extends JFrame
 	
 	public void turnChange()//다음턴일때 해야 할 행동 판 돌리기, Black's Turn!이라고 말하기
 	{
-		/*
 		for(int i = 0; i < chessSquares.length; i++) {
 			for(int j = 0; j< chessSquares[i].length; j++) {
 				jpanel.remove(chessSquares[i][j]);
 			}
 		}
-		
-		notice("Next Players Turn!");
+
 		
 		for(int i = 0; i < chessSquares.length; i++) {
 			for(int j = 0; j< chessSquares[i].length; j++) {
@@ -86,7 +84,6 @@ public class ChessGUI extends JFrame
 				jpanel.repaint();
 			}
 		}
-		*/
 	}
 
 	public void setCellColor(Vector2[] buttonIndexes,Color a)//buttonIndexes에 해당하는 곳들 색 바꿔줌
@@ -96,9 +93,12 @@ public class ChessGUI extends JFrame
 		}
 	}
 	
-	public void setCellText(Vector2 index, String arg)
+	public void setCellText(Vector2 index, String arg,Color col)
 	{
-		chessSquares[index.X()][index.Y()].setText(arg);
+		JButton b=chessSquares[index.X()][index.Y()];
+		b.setText(arg);
+		b.setFont(b.getFont().deriveFont(60.0f));
+		b.setForeground(col);;
 	}
 	
 	public void notice(String args)//화면에 args내용 표시 ex)Black's Turn!

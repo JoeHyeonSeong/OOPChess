@@ -46,6 +46,11 @@ public class GameManager
 
 	public void start()// Ω√¿€«ÿ¡‹
 	{
+setInit();
+	}
+
+	private void setInit()
+	{
 		chessPanel = new ChessPanel();
 		chessPanel.setInitialPlace();
 		myGUI = new ChessGUI();
@@ -55,23 +60,27 @@ public class GameManager
 			{
 				Vector2 currentPos= new Vector2(i,j);
 				Chesspiece tempPiece= chessPanel.getChesspiece(currentPos);
+
 				if(tempPiece!=null)
 				{
-					myGUI.setCellText(currentPos,tempPiece.myCode);
+					Color col;
+					if(tempPiece.getTeam()==Team.Black) col=Color.black;
+					else col=Color.WHITE;
+					myGUI.setCellText(currentPos,tempPiece.myCode,col);
 				}
 				else
 				{
-					myGUI.setCellText(currentPos,"");
+					myGUI.setCellText(currentPos,"",Color.BLACK);
 				}
 			}
 		}
 		currentTurn = Team.White;
 		currentPhase = Phase.pieceSelectPhase;
 	}
-
+	
+	
 	public void cellSelected(Vector2 pos)
 	{
-		System.out.println(currentPhase.toString()+pos.toString());
 		switch (currentPhase)
 		{
 		case pieceSelectPhase:
@@ -90,7 +99,7 @@ public class GameManager
 		currentSelectedPiece = chessPanel.getChesspiece(pos);
 		if (currentSelectedPiece != null && currentSelectedPiece.getTeam() == currentTurn)
 		{
-			myGUI.setCellColor(currentSelectedPiece.MovablePos(), Color.RED);
+			myGUI.setCellColor(currentSelectedPiece.MovablePos(), Color.CYAN);
 			currentPhase = Phase.posSelectPhase;
 		}
 	}
@@ -101,8 +110,11 @@ public class GameManager
 		if (currentSelectedPiece.move(pos))
 		{
 			turnChange();
-			myGUI.setCellText(pos, currentSelectedPiece.code());
-			myGUI.setCellText(originalPos, "");
+			Color col;
+			if(currentSelectedPiece.getTeam()==Team.Black) col=Color.black;
+			else col=Color.WHITE;
+			myGUI.setCellText(pos, currentSelectedPiece.code(),col);
+			myGUI.setCellText(originalPos, "",col);
 		}
 		else
 		{
@@ -113,12 +125,14 @@ public class GameManager
 
 	public void check()
 	{
+		System.out.println("Check");
 		myGUI.notice("check");
 	}
 
 	public void checkmate()
 	{
 		myGUI.notice("Check Mate!" + currentTurn.toString() + " Win!");
+		System.out.println("CheckMate");
 		myGUI.showRetryButton();
 	}
 

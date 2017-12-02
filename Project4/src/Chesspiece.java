@@ -49,9 +49,45 @@ public abstract class Chesspiece
 		
 		if (validPos)
 		{
-			myPos = myPos.add(position);
-			return true;
+			Chesspiece nextPosPiece=panel.getChesspiece(position);
+			if(nextPosPiece!=null&&nextPosPiece.getTeam()!=myTeam)
+			{
+				panel.delete(nextPosPiece);
+			}
+			myPos = position;
+			checkCheck();
+		}
+		return validPos;
+	}
+	
+	public boolean canGo(Vector2 pos)
+	{
+		Vector2[] nextPoses=MovablePos();
+		for(int i=0;i<nextPoses.length;i++)
+		{
+			if(nextPoses.equals(pos)) return true;
 		}
 		return false;
+	}
+	
+	private void checkCheck()//piece가 다음에 갈 수 있는 위치에 적 킹 있는지 판단
+	{
+		Vector2[] nextPoses=MovablePos();
+		for(int i=0;i<nextPoses.length;i++)
+		{
+			Chesspiece nextPiece=panel.getChesspiece(nextPoses[i]);
+			if(nextPiece!=null&&nextPiece.getTeam()!=myTeam&&nextPiece instanceof King)
+			{
+				if(panel.checkmate((King)nextPiece))
+				{
+					GameManager.instance.checkmate();
+				}
+				else
+				{
+					GameManager.instance.check();
+				}
+				
+			}
+		}
 	}
 }
