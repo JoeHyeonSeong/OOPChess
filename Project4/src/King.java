@@ -16,4 +16,5 @@ public void destroy()
 {
 	GameManager.instance.gameOver();
 }
+
 }

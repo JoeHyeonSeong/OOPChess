@@ -13,9 +13,9 @@ public class GameManager
 		pieceSelectPhase, posSelectPhase, end
 	}
 
-	public static GameManager instance;// ½Ì±ÛÅæ
+	public static GameManager instance;// ì‹±ê¸€í†¤
 
-	private Team currentTurn;// ÇöÀç ´©±¸ÀÇ ÅÏÀÎÁö
+	private Team currentTurn;// í˜„ì¬ ëˆ„êµ¬ì˜ í„´ì¸ì§€
 
 	private Phase currentPhase;
 
@@ -34,17 +34,21 @@ public class GameManager
 	}
 
 
-	private void turnChange()// ´ÙÀ½ ÅÏÀ¸·Î ³Ñ¾î°¨
+	private void turnChange()// ë‹¤ìŒ í„´ìœ¼ë¡œ ë„˜ì–´ê°
 	{
-		if (currentTurn == Team.Black)
+
+		if (currentTurn == Team.Black) {
 			currentTurn = Team.White;
-		else
+		}
+		else {
 			currentTurn = Team.Black;
-		myGUI.turnChange();
+		}
+		myGUI.turnChange(currentTurn);
+
 		currentPhase = Phase.pieceSelectPhase;
 	}
 
-	public void start()// ½ÃÀÛÇØÁÜ
+	public void start()// ì‹œì‘í•´ì¤Œ
 	{
 setInit();
 	}
@@ -128,6 +132,7 @@ setInit();
 		System.out.println("Check");
 		myGUI.notice("check");
 	}
+
 
 	public void gameOver()
 	{

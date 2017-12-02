@@ -66,11 +66,11 @@ public class ChessPanel
 		System.out.println(nextposes.length);
 		for (int i = 0; i < nextposes.length; i++)
 		{
-			boolean hunterExist = false;// ³»°¡ ´ÙÀ½¹ø¿¡ ¾îµò°¥ °¡¸é ³¯ Á×ÀÌ´Â ¾Ö°¡ ÀÖÀ½
+			boolean hunterExist = false;// ë‚´ê°€ ë‹¤ìŒë²ˆì— ì–´ë”˜ê°ˆ ê°€ë©´ ë‚  ì£½ì´ëŠ” ì• ê°€ ìžˆìŒ
 			for (int j = 0; j < myPanel.size(); j++)
 			{
 				Chesspiece temp = myPanel.get(j);
-				if (temp.canGo(nextposes[i]) && temp.getTeam() == king.getTeam())// ³¯ ÀâÀ»¼ö ÀÖ´Ù
+				if (temp.canGo(nextposes[i]) && temp.getTeam() == king.getTeam())// ë‚  ìž¡ì„ìˆ˜ ìžˆë‹¤
 				{
 					hunterExist = true;
 				}

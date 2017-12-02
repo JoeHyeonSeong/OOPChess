@@ -1,10 +1,18 @@
 import java.awt.Color;
+
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,8 +23,11 @@ public class ChessGUI extends JFrame
 	JButton[][] chessSquares = new JButton[8][8];
 	
 	JPanel glass = (JPanel) super.getGlassPane();
-	JLabel message = new JLabel();
+
 	JButton restart = new JButton("Restart?");
+  
+	JLabel message = new JLabel();
+
 	
 	public ChessGUI(ChessPanel panel)
 	{
@@ -28,6 +39,31 @@ public class ChessGUI extends JFrame
 		setSize(800, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		
+		jpanel.setLayout(new GridLayout(8,8));
+		for(int i = 0; i < chessSquares.length; i++) {
+			for(int j = 0; j< chessSquares[i].length; j++) {
+				JButton square = new JButton();
+				square.setMargin(new Insets(0, 0, 0, 0));
+				
+				chessSquares[i][j] = square;
+				//chessSquares[i][j].setText(String.valueOf(i) + "," + String.valueOf(j));
+				
+				final Integer x = new Integer(i);
+				final Integer y = new Integer(j);
+				
+				chessSquares[i][j].addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						GameManager.instance.cellSelected(new Vector2(x, y));
+					}
+				});
+				
+				jpanel.add(chessSquares[i][j]);
+			}
+		}
+		backgroundRepaint();
+		add(jpanel);
+
 		
 		jpanel.setLayout(new GridLayout(8,8));
 		for(int i = 0; i < chessSquares.length; i++) {
@@ -68,25 +104,55 @@ public class ChessGUI extends JFrame
 			}
 		}
 	}
-	
-	public void turnChange()//´ÙÀ½ÅÏÀÏ¶§ ÇØ¾ß ÇÒ Çàµ¿ ÆÇ µ¹¸®±â, Black's Turn!ÀÌ¶ó°í ¸»ÇÏ±â
-	{
-		for(int i = 0; i < chessSquares.length; i++) {
-			for(int j = 0; j< chessSquares[i].length; j++) {
-				jpanel.remove(chessSquares[i][j]);
-			}
-		}
 
-		
-		for(int i = 0; i < chessSquares.length; i++) {
-			for(int j = 0; j< chessSquares[i].length; j++) {
-				jpanel.add(chessSquares[j][i]);
-				jpanel.repaint();
+	public void backgroundRepaint()
+	{
+		for(int i=0;i<chessSquares.length;i++)
+		{
+			for(int j=0;j<chessSquares.length;j++)
+			{
+				if((i % 2 == 1) && (j % 2 == 1) || (i % 2 == 0) && (j % 2 == 0)) {
+					chessSquares[i][j].setBackground(new Color(0.741f, 0.588f, 0.372f));
+				} else {
+					chessSquares[i][j].setBackground(new Color(0.345f, 0.231f,0.168f));
+				}
 			}
 		}
 	}
+	
+	public void turnChange(Team toteam)//ë‹¤ìŒí„´ì¼ë•Œ í•´ì•¼ í•  í–‰ë™ íŒ ëŒë¦¬ê¸°, Black's Turn!ì´ë¼ê³  ë§í•˜ê¸°
+	{
+  for(int i = 0; i < chessSquares.length; i++) {
+				for(int j = 0; j< chessSquares[i].length; j++) {
+					jpanel.remove(chessSquares[i][j]);
+				}
+			}
+		if(toteam == Team.Black) {
+			
+			
+			notice("Team BLACK's Turn!");
 
-	public void setCellColor(Vector2[] buttonIndexes,Color a)//buttonIndexes¿¡ ÇØ´çÇÏ´Â °÷µé »ö ¹Ù²ãÁÜ
+			for(int i = chessSquares.length - 1; i >= 0 ; i--) {
+				for(int j = chessSquares[i].length - 1; j >= 0; j--) {
+					jpanel.add(chessSquares[i][j]);
+					
+				}
+			}
+			jpanel.repaint();
+		} else {
+			notice("Team WHITE's Turn!");
+			
+			for(int i = 0; i < chessSquares.length; i++) {
+				for(int j = 0; j< chessSquares[i].length; j++) {
+					jpanel.add(chessSquares[i][j]);
+					
+				}
+			}
+			jpanel.repaint();
+		}
+	}
+	
+	public void setCellColor(Vector2[] buttonIndexes,Color a)//buttonIndexesì— í•´ë‹¹í•˜ëŠ” ê³³ë“¤ ìƒ‰ ë°”ê¿”ì¤Œ
 	{
 		for(int i = 0; i< buttonIndexes.length; i++) {
 			chessSquares[buttonIndexes[i].X()][buttonIndexes[i].Y()].setBackground(a);
@@ -101,15 +167,29 @@ public class ChessGUI extends JFrame
 		b.setForeground(col);;
 	}
 	
-	public void notice(String args)//È­¸é¿¡ args³»¿ë Ç¥½Ã ex)Black's Turn!
+	public void notice(String args)//í™”ë©´ì— argsë‚´ìš© í‘œì‹œ ex)Black's Turn!
 	{
+		message.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 35));
+		message.setForeground(Color.RED);
+		Timer messageTimer = new Timer();
+		TimerTask timertask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				message.setText("");
+			}
+		};
+		
 		message.setText(args);
 		glass.add(message);
 		glass.setVisible(true);
 		super.repaint();
+		messageTimer.schedule(timertask, 3000);
+
 	}
 	
-	public void showRetryButton()//Àç½ÃÀÛ¹öÆ°À» º¸¿©ÁÜ
+	public void showRetryButton()//ìž¬ì‹œìž‘ë²„íŠ¼ì„ ë³´ì—¬ì¤Œ
 	{
 		restart.addActionListener(new ActionListener() {
 			

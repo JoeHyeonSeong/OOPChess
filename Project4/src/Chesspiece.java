@@ -1,21 +1,21 @@
 
 public abstract class Chesspiece
 {
-	protected Team myTeam;// ³»°¡ ´©±¸ÆÀÀÎÁö
+	protected Team myTeam;// ë‚´ê°€ ëˆ„êµ¬íŒ€ì¸ì§€
 
 	public Team getTeam()
 	{
 		return myTeam;
 	}
 
-	protected String myCode;// ³ªÀÇ ÄÚµå
+	protected String myCode;// ë‚˜ì˜ ì½”ë“œ
 
 	public String code()
 	{
 		return myCode;
 	}
 
-	protected Vector2 myPos;// ³» ÇöÀç À§Ä¡
+	protected Vector2 myPos;// ë‚´ í˜„ì¬ ìœ„ì¹˜
 
 	public Vector2 pos()
 	{
@@ -37,7 +37,7 @@ public abstract class Chesspiece
 	{
 		boolean validPos=false;
 		Vector2[] movablePos=this.MovablePos();
-		//°¥¼öÀÖ´Â °÷ÀÎÁö Ã¼Å©
+		//ê°ˆìˆ˜ìˆëŠ” ê³³ì¸ì§€ ì²´í¬
 		for(int i=0;i<movablePos.length;i++)
 		{
 			if(movablePos[i].equals(position))
@@ -59,11 +59,12 @@ public abstract class Chesspiece
 		}
 		return validPos;
 	}
-	
+
 	public void destroy()
 	{
 	}
 	
+
 	public boolean canGo(Vector2 pos)
 	{
 		Vector2[] nextPoses=MovablePos();
@@ -74,7 +75,7 @@ public abstract class Chesspiece
 		return false;
 	}
 	
-	private void checkCheck()//piece°¡ ´ÙÀ½¿¡ °¥ ¼ö ÀÖ´Â À§Ä¡¿¡ Àû Å· ÀÖ´ÂÁö ÆÇ´Ü
+	private void checkCheck()//pieceê°€ ë‹¤ìŒì— ê°ˆ ìˆ˜ ìˆëŠ” ìœ„ì¹˜ì— ì  í‚¹ ìˆëŠ”ì§€ íŒë‹¨
 	{
 		Vector2[] nextPoses=MovablePos();
 		for(int i=0;i<nextPoses.length;i++)
