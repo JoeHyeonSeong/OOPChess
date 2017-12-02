@@ -12,5 +12,9 @@ public class King extends RelativeMovePiece
 		};
 	}
 
+public void destroy()
+{
+	GameManager.instance.gameOver();
+}
 
 }

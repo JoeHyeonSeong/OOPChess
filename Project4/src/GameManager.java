@@ -13,9 +13,9 @@ public class GameManager
 		pieceSelectPhase, posSelectPhase, end
 	}
 
-	public static GameManager instance;// ½Ì±ÛÅæ
+	public static GameManager instance;// ì‹±ê¸€í†¤
 
-	private Team currentTurn;// ÇöÀç ´©±¸ÀÇ ÅÏÀÎÁö
+	private Team currentTurn;// í˜„ì¬ ëˆ„êµ¬ì˜ í„´ì¸ì§€
 
 	private Phase currentPhase;
 
@@ -34,8 +34,9 @@ public class GameManager
 	}
 
 
-	private void turnChange()// ´ÙÀ½ ÅÏÀ¸·Î ³Ñ¾î°¨
+	private void turnChange()// ë‹¤ìŒ í„´ìœ¼ë¡œ ë„˜ì–´ê°
 	{
+
 		if (currentTurn == Team.Black) {
 			currentTurn = Team.White;
 		}
@@ -43,10 +44,11 @@ public class GameManager
 			currentTurn = Team.Black;
 		}
 		myGUI.turnChange(currentTurn);
+
 		currentPhase = Phase.pieceSelectPhase;
 	}
 
-	public void start()// ½ÃÀÛÇØÁÜ
+	public void start()// ì‹œì‘í•´ì¤Œ
 	{
 setInit();
 	}
@@ -131,9 +133,10 @@ setInit();
 		myGUI.notice("check");
 	}
 
-	public void checkmate()
+
+	public void gameOver()
 	{
-		myGUI.notice("Check Mate!" + currentTurn.toString() + " Win!");
+		myGUI.notice(currentTurn.toString() + " Win!");
 		System.out.println("CheckMate");
 		myGUI.showRetryButton();
 	}
