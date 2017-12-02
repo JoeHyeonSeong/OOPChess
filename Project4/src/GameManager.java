@@ -129,9 +129,9 @@ setInit();
 		myGUI.notice("check");
 	}
 
-	public void checkmate()
+	public void gameOver()
 	{
-		myGUI.notice("Check Mate!" + currentTurn.toString() + " Win!");
+		myGUI.notice(currentTurn.toString() + " Win!");
 		System.out.println("CheckMate");
 		myGUI.showRetryButton();
 	}

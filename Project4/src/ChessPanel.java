@@ -51,7 +51,7 @@ public class ChessPanel
 
 	public void delete(Chesspiece piece)
 	{
-
+		piece.destroy();
 		myPanel.remove(piece);
 	}
 
