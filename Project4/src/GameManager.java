@@ -13,9 +13,9 @@ public class GameManager
 		pieceSelectPhase, posSelectPhase, end
 	}
 
-	public static GameManager instance;// 싱글톤
+	public static GameManager instance;// �떛湲��넠
 
-	private Team currentTurn;// 현재 누구의 턴인지
+	private Team currentTurn;// �쁽�옱 �늻援ъ쓽 �꽩�씤吏�
 
 	private Phase currentPhase;
 
@@ -34,7 +34,7 @@ public class GameManager
 	}
 
 
-	private void turnChange()// 다음 턴으로 넘어감
+	private void turnChange()// �떎�쓬 �꽩�쑝濡� �꽆�뼱媛�
 	{
 
 		if (currentTurn == Team.Black) {
@@ -48,8 +48,12 @@ public class GameManager
 		currentPhase = Phase.pieceSelectPhase;
 	}
 
-	public void start()// 시작해줌
+	public void start()// �떆�옉�빐以�
 	{
+		if(myGUI!=null)
+		{
+		myGUI.dispose();
+		}
 setInit();
 	}
 

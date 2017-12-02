@@ -87,8 +87,6 @@ public class ChessGUI extends JFrame
 					jpanel.remove(chessSquares[i][j]);
 				}
 			}
-			
-			notice("Team BLACK's Turn!");
 
 			for(int i = chessSquares.length - 1; i >= 0 ; i--) {
 				for(int j = chessSquares[i].length - 1; j >= 0; j--) {
@@ -103,8 +101,6 @@ public class ChessGUI extends JFrame
 					jpanel.remove(chessSquares[i][j]);
 				}
 			}
-			
-			notice("Team WHITE's Turn!");
 			
 			for(int i = 0; i < chessSquares.length; i++) {
 				for(int j = 0; j< chessSquares[i].length; j++) {
