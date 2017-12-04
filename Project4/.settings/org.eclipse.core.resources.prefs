@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/Bishop.java=UTF-8
 encoding//src/ChessGUI.java=UTF-8
+encoding//src/ChessPanel.java=UTF-8
+encoding//src/Chesspiece.java=UTF-8
 encoding//src/GameManager.java=UTF-8
 encoding//src/King.java=UTF-8
 encoding//src/Knight.java=UTF-8

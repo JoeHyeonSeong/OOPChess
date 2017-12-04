@@ -66,12 +66,15 @@ public class ChessPanel
 		System.out.println(nextposes.length);
 		for (int i = 0; i < nextposes.length; i++)
 		{
-			boolean hunterExist = false;// 내가 다음번에 어딘갈 가면 날 죽이는 애가 있음
+			System.out.println(nextposes[i].toString());
+			boolean hunterExist = false;// 날 죽일수 있는 애
 			for (int j = 0; j < myPanel.size(); j++)
 			{
 				Chesspiece temp = myPanel.get(j);
-				if (temp.canGo(nextposes[i]) && temp.getTeam() == king.getTeam())// 날 잡을수 있다
+				System.out.println(temp.getClass().getName()+temp.canGo(nextposes[i])+temp.pos());
+				if (temp.canGo(nextposes[i]) && temp.getTeam() != king.getTeam())// 죽일수있음
 				{
+					
 					hunterExist = true;
 				}
 
@@ -80,8 +83,8 @@ public class ChessPanel
 			{
 				return false;
 			}
-
 		}
+		System.out.print("pass");
 		for (int i = 0; i < myPanel.size(); i++)
 		{
 			Chesspiece enermy = myPanel.get(i);
@@ -96,10 +99,7 @@ public class ChessPanel
 					}
 				}
 			}
-			else
-			{
-				return false;
-			}
+
 		}
 		return true;
 	}

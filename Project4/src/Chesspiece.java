@@ -1,21 +1,21 @@
 
 public abstract class Chesspiece
 {
-	protected Team myTeam;// 내가 누구팀인지
+	protected Team myTeam;// �궡媛� �늻援ы��씤吏�
 
 	public Team getTeam()
 	{
 		return myTeam;
 	}
 
-	protected String myCode;// 나의 코드
+	protected String myCode;// �굹�쓽 肄붾뱶
 
 	public String code()
 	{
 		return myCode;
 	}
 
-	protected Vector2 myPos;// 내 현재 위치
+	protected Vector2 myPos;// �궡 �쁽�옱 �쐞移�
 
 	public Vector2 pos()
 	{
@@ -37,7 +37,7 @@ public abstract class Chesspiece
 	{
 		boolean validPos=false;
 		Vector2[] movablePos=this.MovablePos();
-		//갈수있는 곳인지 체크
+		//媛덉닔�엳�뒗 怨녹씤吏� 泥댄겕
 		for(int i=0;i<movablePos.length;i++)
 		{
 			if(movablePos[i].equals(position))
@@ -70,12 +70,12 @@ public abstract class Chesspiece
 		Vector2[] nextPoses=MovablePos();
 		for(int i=0;i<nextPoses.length;i++)
 		{
-			if(nextPoses.equals(pos)) return true;
+			if(nextPoses[i].equals(pos)) return true;
 		}
 		return false;
 	}
 	
-	private void checkCheck()//piece가 다음에 갈 수 있는 위치에 적 킹 있는지 판단
+	private void checkCheck()//piece媛� �떎�쓬�뿉 媛� �닔 �엳�뒗 �쐞移섏뿉 �쟻 �궧 �엳�뒗吏� �뙋�떒
 	{
 		Vector2[] nextPoses=MovablePos();
 		for(int i=0;i<nextPoses.length;i++)
